@@ -1,7 +1,10 @@
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.math.BigDecimal;
 
 public class CartTest {
     private Cart cart;
@@ -18,26 +21,26 @@ public class CartTest {
 
     @Test
     public void testCalculate() {
-        int price = cart.calculate("ABCDABA");
-        Assert.assertEquals(793.6, price);
+        BigDecimal price = cart.calculate("ABCDABA");
+        Assert.assertEquals(new BigDecimal(793.6), price);
     }
 
     @Test
     public void testCalculate1() {
-        int price = cart.calculate("CCCCCCC");
-        Assert.assertEquals(6.0, price);
+        BigDecimal price = cart.calculate("CCCCCCC");
+        Assert.assertEquals(new BigDecimal(6.0), price);
     }
 
     @Test
     public void testCalculate2() {
-        int price = cart.calculate("ABCD");
-        Assert.assertEquals(632.8, price);
+        BigDecimal price = cart.calculate("ABCD");
+        Assert.assertEquals(new BigDecimal(632.8), price);
     }
 
     @Test
-    public void testCalculate() {
-        int price = cart.calculate("FFFFFFFFF");
-        Assert.assertEquals(135.0, price);
+    public void testCalculate3() {
+        BigDecimal price = cart.calculate("FFFFFFFFF");
+        Assert.assertEquals(new BigDecimal(135.0), price);
     }
 
 }
