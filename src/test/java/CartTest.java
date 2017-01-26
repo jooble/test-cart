@@ -1,46 +1,25 @@
-
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 
 public class CartTest {
-    private Cart cart;
+    private Cart cart = new Cart();
 
-    @Before
-    public void initData() {
-        cart = new Cart();
+    @DataProvider
+    public Object[][] priceDataProvider() {
+        return new Object[][]{
+                {793.6, "ABCDABA"},
+                {6.0, "CCCCCCC"},
+                {632.8, "ABCD"},
+                {135.0, "FFFFFFFFF"}
+        };
     }
 
-    @After
-    public void clearData() {
-        cart = null;
+    @Test(dataProvider = "priceDataProvider")
+    public void testCalculate(Double validPrice, String code) {
+        BigDecimal price = cart.calculate(code);
+        Assert.assertEquals(new BigDecimal(validPrice), price);
     }
-
-    @Test
-    public void testCalculate() {
-        BigDecimal price = cart.calculate("ABCDABA");
-        Assert.assertEquals(new BigDecimal(793.6), price);
-    }
-
-    @Test
-    public void testCalculate1() {
-        BigDecimal price = cart.calculate("CCCCCCC");
-        Assert.assertEquals(new BigDecimal(6.0), price);
-    }
-
-    @Test
-    public void testCalculate2() {
-        BigDecimal price = cart.calculate("ABCD");
-        Assert.assertEquals(new BigDecimal(632.8), price);
-    }
-
-    @Test
-    public void testCalculate3() {
-        BigDecimal price = cart.calculate("FFFFFFFFF");
-        Assert.assertEquals(new BigDecimal(135.0), price);
-    }
-
 }
